@@ -1,0 +1,84 @@
+body {
+  background: #121212;
+  color: white;
+  margin: 0;
+  padding: 20px;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.nav-button {
+  background: #ff9800;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 20px;
+  color: black;
+}
+
+.shift-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shift-card {
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 80px auto minmax(200px, 1fr);
+  gap: 15px;
+  align-items: center;
+}
+
+.date-box {
+  background: #2d2d2d;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.date-box.weekend {
+  background: #ff4545;
+}
+
+.day-number {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.day-name {
+  font-size: 0.8rem;
+}
+
+.shift-gif {
+  width: 100%;
+  height: 100px;
+  background: #2d2d2d;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.shift-gif img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
