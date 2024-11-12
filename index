@@ -1,50 +1,62 @@
-<div class="container">
-  <div class="header">
-    <button class="nav-button">&lt;</button>
-    <h2 id="date-range"></h2>
-    <button class="nav-button">&gt;</button>
-  </div>
-  
-  <div id="shifts-container" class="shift-list">
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Control de Turnos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="nav-button">&lt;</button>
+            <h2 id="date-range"></h2>
+            <button class="nav-button">&gt;</button>
+        </div>
+        
+        <div id="shifts-container" class="shift-list"></div>
+    </div>
 
-<div id="shift-modal" class="modal">
-  <div class="modal-content">
-    <h3>Editar Turno</h3>
-    <div class="time-inputs">
-      <div class="time-input">
-        <label>Hora Inicio</label>
-        <input type="time" id="start-time">
-      </div>
-      <div class="time-input">
-        <label>Hora Fin</label>
-        <input type="time" id="end-time">
-      </div>
-    </div>
-    
-    <div class="break-inputs">
-      <h4>Descanso (no pagado)</h4>
-      <div class="time-inputs">
-        <div class="time-input">
-          <label>Inicio Descanso</label>
-          <input type="time" id="break-start">
+    <div id="shift-modal" class="modal">
+        <div class="modal-content">
+            <h3>Editar Turno</h3>
+            <div class="time-inputs">
+                <div class="time-input">
+                    <label>Hora Inicio</label>
+                    <input type="time" id="start-time">
+                </div>
+                <div class="time-input">
+                    <label>Hora Fin</label>
+                    <input type="time" id="end-time">
+                </div>
+            </div>
+            
+            <div class="break-inputs">
+                <h4>Descanso (no pagado)</h4>
+                <div class="time-inputs">
+                    <div class="time-input">
+                        <label>Inicio Descanso</label>
+                        <input type="time" id="break-start">
+                    </div>
+                    <div class="time-input">
+                        <label>Fin Descanso</label>
+                        <input type="time" id="break-end">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="free-day-toggle">
+                <input type="checkbox" id="free-day-toggle">
+                <label>Día Libre</label>
+            </div>
+            
+            <div class="modal-buttons">
+                <button onclick="closeModal()">Cancelar</button>
+                <button onclick="saveShift()">Guardar</button>
+            </div>
         </div>
-        <div class="time-input">
-          <label>Fin Descanso</label>
-          <input type="time" id="break-end">
-        </div>
-      </div>
     </div>
-    
-    <div class="free-day-toggle">
-      <input type="checkbox" id="free-day-toggle">
-      <label>Día Libre</label>
-    </div>
-    
-    <div class="modal-buttons">
-      <button class="modal-button cancel-button" onclick="closeModal()">Cancelar</button>
-      <button class="modal-button save-button" onclick="saveShift()">Guardar</button>
-    </div>
-  </div>
-</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
