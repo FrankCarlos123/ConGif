@@ -1,0 +1,45 @@
+const daysOfWeek = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
+let currentWeekStart = new Date();
+
+function updateShifts() {
+  const container = document.getElementById('shifts-container');
+  container.innerHTML = '';
+  
+  for(let i = 0; i < 7; i++) {
+    const date = new Date(currentWeekStart);
+    date.setDate(date.getDate() + i);
+    
+    const shift = document.createElement('div');
+    shift.className = 'shift-card';
+    
+    shift.innerHTML = `
+      <div class="date-box ${date.getDay() === 0 ? 'weekend' : ''}">
+        <div class="day-number">${date.getDate()}</div>
+        <div class="day-name">${daysOfWeek[date.getDay()]}</div>
+      </div>
+      <div class="shift-details">
+        <div class="shift-time">17:00 - 00:00</div>
+      </div>
+      <div class="shift-gif">
+        <img src="https://via.placeholder.com/300x100" alt="shift animation">
+      </div>
+    `;
+    
+    container.appendChild(shift);
+  }
+}
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', updateShifts);
+
+// Event listeners para los botones de navegación
+document.querySelectorAll('.nav-button').forEach((button, index) => {
+  button.onclick = () => {
+    if (index === 0) { // Botón anterior
+      currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+    } else { // Botón siguiente
+      currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+    }
+    updateShifts();
+  };
+});
