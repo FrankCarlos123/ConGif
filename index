@@ -2,61 +2,219 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control de Turnos</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 16px;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .header {
+            background: #1e1e1e;
+            padding: 16px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .nav-button {
+            background: #ff9800;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            color: black;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #shifts-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .shift-card {
+            background: #1e1e1e;
+            padding: 12px;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: 60px 1fr 150px;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .date-box {
+            background: #2d2d2d;
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .date-box.weekend {
+            background: #ff4545;
+        }
+
+        .day-number {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .day-name {
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .shift-gif {
+            width: 100%;
+            height: 80px;
+            background: #2d2d2d;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .shift-gif img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .totals-card {
+            margin-top: 16px;
+            background: #1e1e1e;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .totals-row {
+            display: grid;
+            grid-template-columns: 1fr auto auto auto;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+            align-items: center;
+        }
+
+        .totals-row:last-child {
+            border-bottom: none;
+            padding-top: 16px;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        .rate-input {
+            width: 60px;
+            text-align: center;
+            background: #2d2d2d;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 4px;
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        .money-earned {
+            color: #ff9800;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        @media (max-width: 360px) {
+            body {
+                padding: 8px;
+            }
+            
+            .shift-card {
+                grid-template-columns: 50px 1fr 120px;
+                gap: 8px;
+                padding: 8px;
+            }
+            
+            .shift-gif {
+                height: 60px;
+            }
+
+            .totals-row {
+                gap: 8px;
+                font-size: 14px;
+            }
+
+            .rate-input {
+                width: 50px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <button class="nav-button">&lt;</button>
-            <h2 id="date-range"></h2>
-            <button class="nav-button">&gt;</button>
+    <div class="header">
+        <button class="nav-button">&lt;</button>
+        <h2>11 nov - 17 nov</h2>
+        <button class="nav-button">&gt;</button>
+    </div>
+
+    <div id="shifts-container">
+        <!-- Tarjeta de ejemplo estática -->
+        <div class="shift-card">
+            <div class="date-box">
+                <div class="day-number">11</div>
+                <div class="day-name">LUN</div>
+            </div>
+            <div>19:00 - 00:00</div>
+            <div class="shift-gif">
+                <img src="https://via.placeholder.com/300x100" alt="turno">
+            </div>
         </div>
         
-        <div id="shifts-container" class="shift-list"></div>
-    </div>
+        <div class="shift-card">
+            <div class="date-box">
+                <div class="day-number">12</div>
+                <div class="day-name">MAR</div>
+            </div>
+            <div>17:00 - 01:00</div>
+            <div class="shift-gif">
+                <img src="https://via.placeholder.com/300x100" alt="turno">
+            </div>
+        </div>
 
-    <div id="shift-modal" class="modal">
-        <div class="modal-content">
-            <h3>Editar Turno</h3>
-            <div class="time-inputs">
-                <div class="time-input">
-                    <label>Hora Inicio</label>
-                    <input type="time" id="start-time">
-                </div>
-                <div class="time-input">
-                    <label>Hora Fin</label>
-                    <input type="time" id="end-time">
-                </div>
+        <!-- Tarjeta de totales -->
+        <div class="totals-card">
+            <div class="totals-row">
+                <span>Horas diurnas:</span>
+                <span>8.0h</span>
+                <input type="number" class="rate-input" value="10">
+                <span class="money-earned">€80.00</span>
             </div>
-            
-            <div class="break-inputs">
-                <h4>Descanso (no pagado)</h4>
-                <div class="time-inputs">
-                    <div class="time-input">
-                        <label>Inicio Descanso</label>
-                        <input type="time" id="break-start">
-                    </div>
-                    <div class="time-input">
-                        <label>Fin Descanso</label>
-                        <input type="time" id="break-end">
-                    </div>
-                </div>
+            <div class="totals-row">
+                <span>Horas nocturnas:</span>
+                <span>4.0h</span>
+                <input type="number" class="rate-input" value="15">
+                <span class="money-earned">€60.00</span>
             </div>
-            
-            <div class="free-day-toggle">
-                <input type="checkbox" id="free-day-toggle">
-                <label>Día Libre</label>
+            <div class="totals-row">
+                <span>Horas festivas:</span>
+                <span>0.0h</span>
+                <input type="number" class="rate-input" value="20">
+                <span class="money-earned">€0.00</span>
             </div>
-            
-            <div class="modal-buttons">
-                <button onclick="closeModal()">Cancelar</button>
-                <button onclick="saveShift()">Guardar</button>
+            <div class="totals-row">
+                <span>Horas domingos:</span>
+                <span>0.0h</span>
+                <input type="number" class="rate-input" value="20">
+                <span class="money-earned">€0.00</span>
+            </div>
+            <div class="totals-row">
+                <span>Total:</span>
+                <span>12.0h</span>
+                <span></span>
+                <span class="money-earned">€140.00</span>
             </div>
         </div>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
